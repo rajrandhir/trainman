@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home_header_container {
+    background-color: #1b0707;
+    width: 100vw;
+    height: 5rem;
+}
+
+.home_header_searchbx {
+    background-color: white;
+    padding: 0 10px;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.Home_header_btn {
+    width: 20%;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Home_header_btn a {
+    text-decoration: none;
+    color: white;
+}
