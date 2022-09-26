@@ -24,6 +24,43 @@
     width: 70%;
 }
 
+.search_station_field {
+    height: 41px !important;
+    margin-top: 11px !important;
+}
+
 .dropdown_row {
     cursor: pointer;
+
+}
+
+.dropdown_bx {
+    width: 100%;
+    border: 1px solid #b1a9b98f;
+    background-color: #fff;
+    padding: 8px 13px;
+    margin: -8px 8px;
+    z-index: 999;
+    border-radius: 2px;
+}
+
+.dropdown_bx:empty {
+    border: none;
+}
+
+.arrow_icon {
+    background-color: cornflowerblue;
+    border-radius: 50%;
+    font-size: 31px;
+    padding: 5px;
+    color: #fff;
+}
+
+.arrow_icon_wrapper {
+    margin-top: 1rem;
+    padding-left: 16px;
+}
+
+.MuiInputBase-colorPrimary {
+    flex-direction: row-reverse !important;
 }
