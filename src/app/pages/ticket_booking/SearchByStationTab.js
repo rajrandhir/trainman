@@ -1,55 +1,106 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { OutlinedInput, InputAdornment, FormControl, Grid, TextField, Button } from '@mui/material'
 import DirectionsTransitIcon from '@mui/icons-material/DirectionsTransit';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import "react-datepicker/dist/react-datepicker.css";
-import data from "../../../data.json";
+import data from "../../../data";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Stack, style } from '@mui/system';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-
-
-
-const styles = {
-  root: {
-    "flex-direction": "row-reverse"
-  }
-}
+import { AppContext } from './Context/Context';
+import dayjs from 'dayjs';
 
 const SearchByStationTab = () => {
-  const [val, setVal] = useState("");
-  const [value, setValue] = React.useState(dayjs());
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
+  var currentDate = new Date();
+  var dd = String(currentDate.getDate()).padStart(2, '0');
+  var dt = String(currentDate.getDate() + 1).padStart(2, '0');
+  var dat = String(currentDate.getDate() + 2).padStart(2, '0');
+  var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = currentDate.getFullYear();
+  // let today = mm + '/' + dd + '/' + yyyy;
+  let tomorrow = mm + '/' + dt + '/' + yyyy;
+  let dayAfter = mm + '/' + dat + '/' + yyyy;
+  const {
+    val,
+    setVal,
+    value,
+    setValue,
+    searStation,
+    setSearchStation,
+    seatAvailability,
+    setSeatAvailability } = useContext(AppContext);
+  console.log(seatAvailability)
 
+  const navigate = useNavigate();
 
+  // increase 1 day from today
+  const handleTomorrow = (e) => {
+    e.preventDefault();
+    setValue(tomorrow)
+  }
+  //// increase 2 day from today
+  const handleAfterTomorrow = (e) => {
+    e.preventDefault();
+    setValue(dayAfter)
+  }
+  //input handler change
   const handleOnchange = (e) => {
-    setVal(e.target.value)
+    let fieldVal = e.target.value
+    setVal(fieldVal)
   }
 
-  const onSearch = (searchItem) => {
+  //when click the suggestion search row, row text will be set on state
+  const onSearch = (e, searchItem) => {
+    e.preventDefault();
     setVal(searchItem);
   }
+
+
+  //Get search details on the basis of name and Code
+
+  const getSearchDetails = (val) => {
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].name == val) {
+        arr.push(data[i]);
+      }
+    }
+    setSeatAvailability(arr)
+    console.log(arr)
+  }
+
+  const swapFunction = () => {
+    if (val != '' && searStation != '') {
+      setVal(searStation)
+      setSearchStation(val)
+    }
+  }
+  //all search field is not empty then redirect to searchdetails page
+  const stationSearchHandler = (e) => {
+    if (val != '' && searStation != '') {
+      getSearchDetails(val);
+      navigate('/searchdetails')
+    } else {
+      alert('plz fill the empty field!!')
+    }
+  }
+
 
   return (
     <>
       <Grid container spacing={1}>
-        <Grid item md={3}>
+        <Grid item xs={12} sm={5} md={3}>
           <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
+              onChange={handleOnchange}
+              placeholder='Enter From Station'
               type='search'
               size='small'
               value={val}
-              onChange={handleOnchange}
               startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}
-
             />
-
           </FormControl>
           <div className='dropdown_bx'>
 
@@ -64,9 +115,46 @@ const SearchByStationTab = () => {
                 }
               }).slice(0, 8)
                 .map((items, i) => (
+
+                  < div
+                    key={i}
+                    onClick={(e) => onSearch(e, items.name)}
+                    className='dropdown_row'>
+
+                    {`${items.name} --${items.code} `}
+                  </div>
+                ))
+            }
+          </div>
+        </Grid>
+        <Grid item> <div className='arrow_icon_wrapper'><SyncAltIcon onClick={swapFunction} className='arrow_icon' /></div></Grid>
+        <Grid item xs={10} sm={5} md={3}>
+          <FormControl sx={{ mt: 1, width: '100%' }} variant="outlined">
+            <OutlinedInput
+              placeholder='Enter To Station'
+              type='search'
+              size='small'
+              value={searStation}
+              onChange={(e) => setSearchStation(e.target.value)}
+              startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}
+            />
+          </FormControl>
+          <div className='dropdown_bx'>
+
+            {
+              data.filter((item) => {
+                if (searStation == "") {
+                  return false
+                } else if (
+                  item.name.toLowerCase().includes(searStation) || item.code.toLowerCase().includes(searStation)
+                ) {
+                  return item;
+                }
+              }).slice(0, 8)
+                .map((items, i) => (
                   <div
                     key={i}
-                    onClick={() => onSearch(items.name)}
+                    onClick={() => setSearchStation(items.name)}
                     className='dropdown_row'>
 
                     {`${items.name} --${items.code}`}
@@ -75,29 +163,15 @@ const SearchByStationTab = () => {
             }
           </div>
         </Grid>
-        <Grid item> <div className='arrow_icon_wrapper'><SyncAltIcon className='arrow_icon' /></div></Grid>
-        <Grid item md={3}>
-          <FormControl sx={{ mt: 1, width: '100%' }} variant="outlined">
-            <OutlinedInput
-              type='search'
-              size='small'
-              value={val}
-              onChange={handleOnchange}
-              startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item md={1.5}>
+        <Grid item sm={5} md={1.5}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               className='date_picker'
-              disableFuture
-              openTo="year"
+              inputFormat="ddd, D MMM YYYY"
+              openTo="day"
               views={['year', 'month', 'day']}
               value={value}
-              InputProps={{
-                classes: { root: style.root }
-              }}
+              minDate={dayjs()}
               onChange={(newValue) => {
                 setValue(newValue);
               }}
@@ -105,53 +179,17 @@ const SearchByStationTab = () => {
             />
           </LocalizationProvider>
         </Grid>
-        <Grid item md={1}>
-          <Button variant='contained' size="large" style={{ m: 1, width: "100%" }}>date</Button>
+        <Grid item sm={1.5} md={1}>
+          <Button size="medium" onClick={handleTomorrow} className={value == tomorrow ? 'active' : 'tomorrow_btn'}>28 sept<br />tomorrow</Button>
+        </Grid>
+        <Grid item sm={1.5} md={1}>
+          <Button size="medium" onClick={handleAfterTomorrow} className={value == dayAfter ? 'active' : 'tomorrow_btn'}>29 Sept<br />day after</Button>
+        </Grid>
+        <Grid item sm={1.5} md={1.7}>
+          <Button variant='contained' onClick={stationSearchHandler} size="medium" className='search_btn'>Search</Button>
         </Grid>
       </Grid>
 
-      {/* <div className='input_field_container'>
-        <div className=''>
-          <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
-            <OutlinedInput
-              type='search'
-              size='small'
-              value={val}
-              onChange={handleOnchange}
-              startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}
-
-            />
-
-          </FormControl>
-
-          <div className='dropdown_bx'>
-
-            {
-              data.filter((item) => {
-                if (val == "") {
-                  return false
-                } else if (
-                  item.name.toLowerCase().includes(val) || item.code.toLowerCase().includes(val)
-                ) {
-                  return item;
-                }
-              }).slice(0, 8)
-                .map((items, i) => (
-                  <div
-                    key={i}
-                    onClick={() => onSearch(items.name)}
-                    className='dropdown_row'>
-
-                    {`${items.name} --${items.code}`}
-                  </div>
-                ))
-            }
-          </div>
-
-
-        </div>
-        <div className='arrow_icon_wrapper'> <SyncAltIcon className='arrow_icon' /></div>
-      </div> */}
     </>
   )
 }

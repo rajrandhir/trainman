@@ -28,3 +28,10 @@
     text-decoration: none;
     color: white;
 }
+
+.box_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

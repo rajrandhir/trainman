@@ -1,0 +1,16 @@
+.my_booking {
+    /* max-width: 25%;
+    min-width: 20%;
+    padding: 1rem;
+    margin-top: 2rem;
+    box-shadow: rgb(0 0 0 / 14%) 0px 1px 4px 0px;
+    ; */
+    box-shadow: rgb(0 0 0 / 14%) 0px 1px 4px 0px !important;
+    ;
+
+
+}
+
+.my_booking .logo {
+    text-align: center;
+}

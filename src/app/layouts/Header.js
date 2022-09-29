@@ -24,12 +24,12 @@ const Header = () => {
           <AppBar position='static'>
 
             <StyledToolbar>
-              <img src={trainman} width="150px" />
+              <Link to='/'><img src={trainman} width="150px" /></Link>
               <div className='home_header_searchbx'>
                 <InputBase placeholder='search..' />
               </div>
               <div className='Home_header_btn'>
-                <Link to='/'>My Bookings</Link>
+                <Link to='/mybooking'>My Bookings</Link>
                 <Link to='/'>Login In</Link>
               </div>
             </StyledToolbar>
