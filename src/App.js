@@ -10,7 +10,7 @@ const loading = (
 const DefaultLayout = lazy(() => import('./app/layouts/Layout'));
 
 //pages
-const Login = lazy(() => import('./app/pages/login/Login'));
+// const Login = lazy(() => import('./app/pages/login/Login'));
 
 const Page404 = lazy(() => import('./app/pages/page404/Page404'));
 
@@ -20,7 +20,7 @@ function App() {
       <Suspense fallback={loading}>
         <Routes>
           <Route path="*" element={<DefaultLayout />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
         </Routes>
       </Suspense>
     </>
