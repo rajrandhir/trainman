@@ -26,7 +26,14 @@
 
 .Home_header_btn a {
     text-decoration: none;
-    color: white;
+    color: rgba(255, 255, 255, 0.808);
+    /* font-weight: 600; */
+    font-family: sans-serif;
+}
+
+.Home_header_btn a:hover {
+    /* opacity: 0.7; */
+    color: #fff;
 }
 
 .box_center {

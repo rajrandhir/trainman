@@ -12,16 +12,9 @@ import { AppContext } from './Context/Context';
 import dayjs from 'dayjs';
 
 const SearchByStationTab = () => {
+  let tomorrow = dayjs().startOf('month').add(2, 'day').format("ddd, D MMM YYYY");
 
-  var currentDate = new Date();
-  var dd = String(currentDate.getDate()).padStart(2, '0');
-  var dt = String(currentDate.getDate() + 1).padStart(2, '0');
-  var dat = String(currentDate.getDate() + 2).padStart(2, '0');
-  var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = currentDate.getFullYear();
-  // let today = mm + '/' + dd + '/' + yyyy;
-  let tomorrow = mm + '/' + dt + '/' + yyyy;
-  let dayAfter = mm + '/' + dat + '/' + yyyy;
+  let dayAfter = dayjs().startOf('month').add(3, 'day').format("ddd, D MMM YYYY");
   const {
     val,
     setVal,
@@ -31,7 +24,6 @@ const SearchByStationTab = () => {
     setSearchStation,
     seatAvailability,
     setSeatAvailability } = useContext(AppContext);
-  console.log(seatAvailability)
 
   const navigate = useNavigate();
 
@@ -86,7 +78,6 @@ const SearchByStationTab = () => {
       alert('plz fill the empty field!!')
     }
   }
-
 
   return (
     <>
@@ -180,10 +171,10 @@ const SearchByStationTab = () => {
           </LocalizationProvider>
         </Grid>
         <Grid item sm={1.5} md={1}>
-          <Button size="medium" onClick={handleTomorrow} className={value == tomorrow ? 'active' : 'tomorrow_btn'}>28 sept<br />tomorrow</Button>
+          <Button size="medium" onClick={handleTomorrow} className={value == tomorrow ? 'active' : 'tomorrow_btn'}>{`${tomorrow.replace(',', ' ').slice(3, 11)}`}<br />tomorrow</Button>
         </Grid>
         <Grid item sm={1.5} md={1}>
-          <Button size="medium" onClick={handleAfterTomorrow} className={value == dayAfter ? 'active' : 'tomorrow_btn'}>29 Sept<br />day after</Button>
+          <Button size="medium" onClick={handleAfterTomorrow} className={value == dayAfter ? 'active' : 'tomorrow_btn'}>{`${dayAfter.replace(',', ' ').slice(3, 11)}`}<br />day after</Button>
         </Grid>
         <Grid item sm={1.5} md={1.7}>
           <Button variant='contained' onClick={stationSearchHandler} size="medium" className='search_btn'>Search</Button>

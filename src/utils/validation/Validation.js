@@ -2,7 +2,7 @@
 
 const validation = (value) => {
     let errors = {};
-    if (value) {
+    if (!value) {
         errors = 'Email is required!!'
     }
     else if (value.length != 10)
