@@ -12,7 +12,6 @@ const Registration = () => {
 
   const sumitHandler = (e) => {
     e.preventDefault();
-    console.log(validation(value))
     setError(validation(value))
     setValue(value)
   }

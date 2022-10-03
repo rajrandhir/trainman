@@ -15,14 +15,18 @@
     border-radius: 8px;
 }
 
-.input_field_container {
-    display: flex;
-    align-items: center;
+.common_search_field_height {
+    height: 40px !important;
 }
 
-.train_search_input_field {
+/* .input_field_container {
+    display: flex;
+    align-items: center;
+} */
+
+/* .train_search_input_field {
     width: 70%;
-}
+} */
 
 .search_station_field {
     height: 41px !important;
@@ -79,14 +83,14 @@
     background-color: none !important;
     border: 1px solid #0000003d !important;
     color: rgba(0, 0, 0, 0.438) !important;
-    line-height: 1.55;
-    line-height: 1.55 !important;
+    /* line-height: 1.55 !important; */
+    height: 40px !important;
 }
 
 /* Date Picker */
-.date_picker input {
+/* .date_picker input {
     font-size: 14px !important;
-}
+} */
 
 .active {
     margin: 9px !important;
@@ -97,7 +101,7 @@
     background-color: #1876d2 !important;
     border: 1px solid #1876d2 !important;
     color: #fff !important;
-    line-height: 1.55 !important;
+    height: 40px !important;
 }
 
 .search_btn {
@@ -108,6 +112,7 @@
     padding-right: 8px !important;
     padding-top: 0.5rem !important;
     padding-bottom: 0.4rem !important;
+    height: 40px !important;
 }
 
 /* search details css */

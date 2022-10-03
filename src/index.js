@@ -9,7 +9,6 @@ import store from './app/store';
 import Context from './app/pages/ticket_booking/Context/Context';
 
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Context>

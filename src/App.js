@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import Loader from "./utils/loader/Loader";
 
 const loading = (
   <div className="text-center">
-    <div className="">Loading...</div>
+    <Loader />
   </div>
 )
 // Layouts

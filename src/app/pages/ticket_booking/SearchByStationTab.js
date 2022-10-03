@@ -60,7 +60,7 @@ const SearchByStationTab = () => {
       }
     }
     setSeatAvailability(arr)
-    console.log(arr)
+    // console.log(arr)
   }
 
   const swapFunction = () => {
@@ -85,10 +85,11 @@ const SearchByStationTab = () => {
         <Grid item xs={12} sm={5} md={3}>
           <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
+              className='common_search_field_height'
               onChange={handleOnchange}
               placeholder='Enter From Station'
               type='search'
-              size='small'
+              // size='small'
               value={val}
               startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}
             />
@@ -122,9 +123,10 @@ const SearchByStationTab = () => {
         <Grid item xs={10} sm={5} md={3}>
           <FormControl sx={{ mt: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
+              className='common_search_field_height'
               placeholder='Enter To Station'
               type='search'
-              size='small'
+              // size='small'
               value={searStation}
               onChange={(e) => setSearchStation(e.target.value)}
               startAdornment={<InputAdornment position="start"><DirectionsTransitIcon /></InputAdornment>}

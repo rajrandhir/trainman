@@ -1,5 +1,3 @@
-
-
 const validation = (value) => {
     let errors = {};
     if (!value) {

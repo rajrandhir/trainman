@@ -37,7 +37,7 @@ const SearchDetails = () => {
 
                                 {
                                     seatAvailability?.map((item, i) => {
-                                        console.log(item)
+
                                         return (
                                             <>
                                                 <Grid item md={3}>
